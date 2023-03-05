@@ -16,6 +16,10 @@ body {
   text-align: center;
 }
 
+.header a {
+  text-decoration: none;
+}
+
 .app-heading {
   font-weight: 400;
   color: white;
