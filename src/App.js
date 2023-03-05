@@ -5,6 +5,7 @@ import Dashboard from "./components/Dashboard";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import TransactionDetails from "./components/TransactionDetails";
 import PrivateRoutes from "./utils/PrivateRoutes";
+import React from "react";
 
 function App() {
 	return (

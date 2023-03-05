@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Pagination from "./Pagination";
 import TransactionTable from "./TransactionTable";
 import localData from "../data.json";
+import { CSVLink } from "react-csv";
 /**
  * features in this component:
  * sort by date and amount
@@ -60,6 +61,21 @@ const TransactionDetails = () => {
 		}
 	};
 
+	// csv download
+	const headers = [
+		{ label: "Date", key: "date" },
+		{ label: "Type", key: "type" },
+		{ label: "Amount", key: "amount" },
+		{ label: "Description", key: "description" },
+		{ label: "Balance", key: "balance" },
+	];
+
+	const csvReport = {
+		data: transactions,
+		headers: headers,
+		filename: "transaction_report.csv",
+	};
+
 	return (
 		<div className="trx-container">
 			<h2>Recent Transactions</h2>
@@ -74,6 +90,9 @@ const TransactionDetails = () => {
 				currentPage={currentPage}
 				paginate={paginate}
 			/>
+			<CSVLink {...csvReport}>
+				<button className="btn submit-btn">Export to CSV</button>
+			</CSVLink>
 		</div>
 	);
 };

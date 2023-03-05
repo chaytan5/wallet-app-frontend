@@ -25,7 +25,7 @@ const TransactionTable = ({ transactions, loading, sorting }) => {
 					{transactions.map((item) => (
 						<tr className="table-row" key={item.id}>
 							<td className="table-cell">
-								{new Date(item?.date)?.toLocaleDateString()}
+								{new Date(item.date).toLocaleDateString()}
 							</td>
 							<td className="table-cell">{item.type}</td>
 							<td className="table-cell">{item.amount}</td>
