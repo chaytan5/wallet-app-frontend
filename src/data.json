@@ -1,0 +1,20 @@
+[
+	{
+		"id": "343434",
+		"walletId": "1243434",
+		"amount": 2.4,
+		"balance": 12.4,
+		"description": "Recharge",
+		"date": "1995-12-17T03:24:00",
+		"type": "CREDIT"
+	},
+	{
+		"id": "54452",
+		"walletId": "1243434",
+		"amount": 10,
+		"balance": 10,
+		"description": "Setup",
+		"date": "2022-12-17T03:24:00",
+		"type": "CREDIT"
+	}
+]

@@ -272,11 +272,19 @@ input[type="radio"] {
   padding: 1rem;
 }
 
-.transaction-table {
+
+.table-container {
   margin-top: 2rem;
+
+}
+
+.transaction-table {
+  margin-top: 1rem;
   padding: 1rem;
   border: 1px solid black;
   border-collapse: collapse;
+  width: 100%;
+  text-align: center;
 }
 
 th,
@@ -285,10 +293,9 @@ td {
   padding: 0.5rem;
 }
 
-.table-header,
-.table-row,
-.table-cell {
-  border: 1px solid black;
+.th-date,
+.th-amount {
+  cursor: pointer;
 }
 
 .pagination {
