@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const InputForm = () => {
+const LoginForm = () => {
 	const [username, setUsername] = useState("");
 	const [initalBalance, setInitialBalance] = useState(0);
 
@@ -47,4 +47,4 @@ const InputForm = () => {
 	);
 };
 
-export default InputForm;
+export default LoginForm;

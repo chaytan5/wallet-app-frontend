@@ -1,30 +1,26 @@
 import "./App.css";
-import InputForm from "./components/InputForm";
+import LoginForm from "./components/LoginForm";
 import Header from "./components/Header";
 import Dashboard from "./components/Dashboard";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import TransactionDetails from "./components/TransactionDetails";
-
-const appRouter = createBrowserRouter([
-	{
-		path: "/",
-		element: <InputForm />,
-	},
-	{
-		path: "dashboard",
-		element: <Dashboard />,
-	},
-	{
-		path: "transactions",
-		element: <TransactionDetails />,
-	},
-]);
+import PrivateRoutes from "./utils/PrivateRoutes";
 
 function App() {
 	return (
-		<div className="App">
+		<div>
 			<Header />
-			<RouterProvider router={appRouter} />
+			<Router>
+				<Routes>
+					{/* Protected routes */}
+					<Route element={<PrivateRoutes />}>
+						<Route path="/" element={<Dashboard />} />
+						<Route path="/transactions" element={<TransactionDetails />} />
+					</Route>
+					{/* Public routes */}
+					<Route path="/login" element={<LoginForm />} />
+				</Routes>
+			</Router>
 		</div>
 	);
 }
