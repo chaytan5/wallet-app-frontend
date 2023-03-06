@@ -271,15 +271,15 @@ input[type="radio"] {
 }
 
 .trx-container {
-  width: 700px;
   margin: 50px auto;
   padding: 1rem;
+  max-width: 100%;
+  width: 700px;
+  min-width: 250px;
 }
-
 
 .table-container {
   margin-top: 2rem;
-
 }
 
 .transaction-table {

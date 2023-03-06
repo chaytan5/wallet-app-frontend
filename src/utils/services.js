@@ -23,3 +23,5 @@ export const getWallet = async (walletId) => {
 	const response = await axios.get(`https://api.xyz.com/wallet/${walletId}`);
 	return response.data;
 };
+
+export const fetchTransactions = async () => {};

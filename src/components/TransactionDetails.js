@@ -3,6 +3,7 @@ import Pagination from "./Pagination";
 import TransactionTable from "./TransactionTable";
 import localData from "../data.json";
 import { CSVLink } from "react-csv";
+import { fetchTransactions } from "../utils/services";
 /**
  * features in this component:
  * sort by date and amount
@@ -12,31 +13,40 @@ import { CSVLink } from "react-csv";
 
 const TransactionDetails = () => {
 	const [transactions, setTransactions] = useState(localData);
+	const [totalTransactions, setTotalTransactions] = useState([]);
 	const [loading, setLoading] = useState(false);
 	const [currentPage, setCurrentPage] = useState(1);
-	const [transactionsPerPage] = useState(15);
+	const [transactionsPerPage] = useState(10);
 	const [order, setOrder] = useState("ASC");
-
-	useEffect(() => {
-		// getTransactions();
-	}, []);
-
-	const getTransactions = async () => {
-		setLoading(true);
-		const res = await fetch("https://jsonplaceholder.typicode.com/posts");
-		const json = await res.json();
-		setLoading(false);
-
-		// setTransactions(json);
-	};
 
 	// get current transactions
 	const indexOfLastTransaction = currentPage * transactionsPerPage;
 	const indexOfFirstTransaction = indexOfLastTransaction - transactionsPerPage;
-	const currentTransactions = transactions.slice(
-		indexOfFirstTransaction,
-		indexOfLastTransaction
-	);
+	// const currentTransactions = transactions.slice(
+	// 	indexOfFirstTransaction,
+	// 	indexOfLastTransaction
+	// );
+
+	useEffect(() => {
+		// getTransactions();
+		const data = fetchTransactions(
+			indexOfFirstTransaction,
+			transactionsPerPage
+		);
+
+		setTotalTransactions(data.totalTransactions);
+
+		// setTransactions(data.transactions);
+	}, []);
+
+	// const getTransactions = async () => {
+	// 	setLoading(true);
+	// 	const res = await fetch("https://jsonplaceholder.typicode.com/posts");
+	// 	const json = await res.json();
+	// 	setLoading(false);
+
+	// setTransactions(json);
+	// };
 
 	// pagination
 	const paginate = (pageNumber) => {
@@ -66,7 +76,10 @@ const TransactionDetails = () => {
 		{ label: "Date", key: "date" },
 		{ label: "Type", key: "type" },
 		{ label: "Amount", key: "amount" },
-		{ label: "Description", key: "description" },
+		{
+			label: "Description",
+			key: "description",
+		},
 		{ label: "Balance", key: "balance" },
 	];
 
@@ -80,13 +93,13 @@ const TransactionDetails = () => {
 		<div className="trx-container">
 			<h2>Recent Transactions</h2>
 			<TransactionTable
-				transactions={currentTransactions}
+				transactions={transactions}
 				loading={loading}
 				sorting={sorting}
 			/>
 			<Pagination
 				transactionsPerPage={transactionsPerPage}
-				totalTransactions={transactions.length}
+				totalTransactions={totalTransactions}
 				currentPage={currentPage}
 				paginate={paginate}
 			/>
