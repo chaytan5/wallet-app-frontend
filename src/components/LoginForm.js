@@ -11,17 +11,12 @@ const LoginForm = () => {
 	const submitFormHandler = (e) => {
 		e.preventDefault();
 		// balance formatted to 4 decimal digits
-		const formattedBalance = Number.parseInt(
-			Number.parseFloat(initalBalance).toFixed(4)
-		);
+		const formattedBalance = initalBalance.toFixed(4);
 
 		const formData = { name: username, balance: formattedBalance };
 		const isInitiazed = initializeWallet(formData);
 		if (isInitiazed) {
 			navigate("/");
-		}
-		if (isInitiazed !== true) {
-			window.alert("There seems to be an error");
 		}
 	};
 

@@ -1,10 +1,14 @@
 import axios from "axios";
 
-export const initializeWallet = async (username, formData) => {
-	const response = await axios.post("https://api.xyz.com/setup", formData);
-	if (response.data) {
-		localStorage.setItem("walletId", response.data.id);
-		return true;
+export const initializeWallet = async (formData) => {
+	try {
+		const response = await axios.post("https://api.xyz.com/setup", formData);
+		if (response.data) {
+			localStorage.setItem("walletId", response.data.id);
+			return true;
+		}
+	} catch (err) {
+		console.log(err);
 	}
 };
 

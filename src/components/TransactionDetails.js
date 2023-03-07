@@ -4,12 +4,6 @@ import TransactionTable from "./TransactionTable";
 import localData from "../data.json";
 import { CSVLink } from "react-csv";
 import { fetchTransactions } from "../utils/services";
-/**
- * features in this component:
- * sort by date and amount
- * pagination links
- * export csv file
- */
 
 const TransactionDetails = () => {
 	const [transactions, setTransactions] = useState(localData);
@@ -17,15 +11,17 @@ const TransactionDetails = () => {
 	const [loading, setLoading] = useState(false);
 	const [currentPage, setCurrentPage] = useState(1);
 	const [transactionsPerPage] = useState(10);
+	const [orderDate, setOrderDate] = useState("ASC");
+	const [orderAmount, setOrderAmount] = useState("ASC");
 	const [order, setOrder] = useState("ASC");
 
 	// get current transactions
 	const indexOfLastTransaction = currentPage * transactionsPerPage;
 	const indexOfFirstTransaction = indexOfLastTransaction - transactionsPerPage;
-	// const currentTransactions = transactions.slice(
-	// 	indexOfFirstTransaction,
-	// 	indexOfLastTransaction
-	// );
+	const currentTransactions = transactions.slice(
+		indexOfFirstTransaction,
+		indexOfLastTransaction
+	);
 
 	useEffect(() => {
 		// getTransactions();
@@ -39,35 +35,105 @@ const TransactionDetails = () => {
 		// setTransactions(data.transactions);
 	}, []);
 
-	// const getTransactions = async () => {
-	// 	setLoading(true);
-	// 	const res = await fetch("https://jsonplaceholder.typicode.com/posts");
-	// 	const json = await res.json();
-	// 	setLoading(false);
-
-	// setTransactions(json);
-	// };
-
 	// pagination
 	const paginate = (pageNumber) => {
 		setCurrentPage(pageNumber);
 	};
 
-	// sorting
-	const sorting = (col) => {
+	const sortingNew = (col) => {
 		if (order === "ASC") {
-			const sorted = [...transactions].sort((a, b) =>
-				a[col] > b[col] ? 1 : -1
-			);
+			const sorted = [...transactions].sort((a, b) => {
+				console.log(a[col], b[col]);
+				if (a[col] > b[col]) {
+					return 1;
+				} else if (a[col] < b[col]) {
+					return -1;
+				} else {
+					return 0;
+				}
+			});
 			setTransactions(sorted);
 			setOrder("DESC");
 		}
+
 		if (order === "DESC") {
-			const sorted = [...transactions].sort((a, b) =>
-				a[col] < b[col] ? 1 : -1
-			);
+			const sorted = [...transactions].sort((a, b) => {
+				console.log(a[col], b[col]);
+				if (a[col] < b[col]) {
+					return 1;
+				} else if (a[col] > b[col]) {
+					return -1;
+				} else {
+					return 0;
+				}
+			});
 			setTransactions(sorted);
 			setOrder("ASC");
+		}
+	};
+
+	// sorting
+	const sorting = (col) => {
+		if (col === "date") {
+			if (orderDate === "ASC") {
+				const sorted = [...transactions].sort((a, b) => {
+					console.log(a[col], b[col]);
+					if (a[col] > b[col]) {
+						return 1;
+					} else if (a[col] < b[col]) {
+						return -1;
+					} else {
+						return 0;
+					}
+				});
+				setTransactions(sorted);
+				setOrderDate("DESC");
+			}
+			if (orderDate === "DESC") {
+				const sorted = [...transactions].sort((a, b) => {
+					console.log(a[col], b[col]);
+					if (a[col] < b[col]) {
+						return 1;
+					} else if (a[col] > b[col]) {
+						return -1;
+					} else {
+						return 0;
+					}
+				});
+				setTransactions(sorted);
+				setOrderDate("ASC");
+			}
+		}
+
+		if (col === "amount") {
+			if (orderAmount === "ASC") {
+				const sorted = [...transactions].sort((a, b) => {
+					console.log(a[col], b[col]);
+					if (a[col] > b[col]) {
+						return 1;
+					} else if (a[col] < b[col]) {
+						return -1;
+					} else {
+						return 0;
+					}
+				});
+				setTransactions(sorted);
+				setOrderAmount("DESC");
+			}
+			if (orderAmount === "DESC") {
+				const sorted = [...transactions].sort((a, b) => {
+					console.log(a[col], b[col]);
+					if (a[col] < b[col]) {
+						return 1;
+					} else if (a[col] > b[col]) {
+						return -1;
+					} else {
+						return 0;
+					}
+				});
+				setTransactions(sorted);
+				setOrderAmount("ASC");
+			}
 		}
 	};
 
@@ -95,7 +161,7 @@ const TransactionDetails = () => {
 			<TransactionTable
 				transactions={transactions}
 				loading={loading}
-				sorting={sorting}
+				sorting={sortingNew}
 			/>
 			<Pagination
 				transactionsPerPage={transactionsPerPage}

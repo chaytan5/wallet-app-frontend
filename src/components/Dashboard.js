@@ -36,9 +36,9 @@ const Dashboard = () => {
 		};
 
 		console.log(finalAmount);
-		// const newBalance = transact(transactionData);
+		const newBalance = transact(transactionData);
 
-		// setBalance(newBalance);
+		setBalance(newBalance);
 	};
 
 	return (
